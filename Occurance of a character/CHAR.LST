@@ -1,0 +1,66 @@
+Microsoft (R) Macro Assembler Version 5.00                  5/27/21 18:12:14
+                                                             Page     1-1
+
+
+ 0000				DATA SEGMENT 
+ 0000  61				CHAR DB 'a' 
+ 0001  61 6A 61 79 20 6A 6F		STRW DB 'ajay john abraham' 
+       68 6E 20 61 62 72 61	
+       68 61 6D			
+ = 0011					COUNT EQU ($-STRW) 
+ 0012				DATA ENDS 
+ 0000				CODE SEGMENT 
+				ASSUME CS:CODE, DS:DATA, ES:DATA 
+ 0000  B8 ---- R			START:	MOV AX,DATA 
+ 0003  8E D8					MOV DS,AX 
+ 0005  8E C0					MOV ES,AX 
+ 0007  B9 0000					MOV CX,00H 
+ 000A  B1 11					MOV CL,COUNT 
+ 000C  41					INC CX 
+ 000D  BB 0000					MOV BX,00H 
+ 0010  8D 3E 0001 R				LEA DI,STRW 
+ 0014  FC					CLD 
+ 0015  A0 0000 R				MOV AL,CHAR 
+ 0018  F2/ AE				L1:	REPNE SCASB 
+ 001A  E3 03					JCXZ L2 
+ 001C  43					INC BX 
+ 001D  EB F9					JMP L1 
+ 001F  B4 4C				L2:	MOV AH,4CH 
+ 0021  CD 21					INT 21H 
+ 0023				CODE ENDS 
+				END START 
+Microsoft (R) Macro Assembler Version 5.00                  5/27/21 18:12:14
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	0023	PARA	NONE	
+DATA . . . . . . . . . . . . . .  	0012	PARA	NONE	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+CHAR . . . . . . . . . . . . . .  	L BYTE	0000	DATA
+COUNT  . . . . . . . . . . . . .  	NUMBER	0011	
+
+L1 . . . . . . . . . . . . . . .  	L NEAR	0018	CODE
+L2 . . . . . . . . . . . . . . .  	L NEAR	001F	CODE
+
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+STRW . . . . . . . . . . . . . .  	L BYTE	0001	DATA
+
+@FILENAME  . . . . . . . . . . .  	TEXT  char		
+
+
+     25 Source  Lines
+     25 Total   Lines
+     10 Symbols
+
+  51100 + 465444 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

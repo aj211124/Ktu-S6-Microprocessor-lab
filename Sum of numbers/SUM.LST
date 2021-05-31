@@ -1,0 +1,65 @@
+Microsoft (R) Macro Assembler Version 5.00                  4/27/21 19:45:02
+                                                             Page     1-1
+
+
+ 0000				DATA SEGMENT 
+ 0000  25 23 12 FF FF 86		LIST DB 25H,23H,12H,0FFH,0FFH,86H 
+ = 0006					COUNT EQU 06H 
+ 0006  0002[				SUM DB 2 DUP(0) 
+	   00			
+			 ]	
+				
+ 0008				DATA ENDS 
+ 0000				CODE SEGMENT 
+					ASSUME CS:CODE,DS:DATA 
+ 0000  B8 ---- R		  START:MOV AX,DATA 
+ 0003  8E D8				MOV DS,AX 
+ 0005  B9 0006				MOV CX,COUNT 
+ 0008  B8 0000				MOV AX,0000H 
+ 000B  8D 36 0000 R			LEA SI,LIST 
+ 000F  02 04			     L2:ADD AL,[SI] 
+ 0011  73 02				JNC L1       		 
+ 0013  FE C4				INC AH 
+ 0015  46			     L1:INC SI 
+ 0016  E2 F7				LOOP L2 
+ 0018  A2 0006 R			MOV SUM,AL 
+ 001B  88 26 0007 R			MOV SUM+1,AH 
+ 001F  B4 4C			        MOV AH,4CH 
+ 0021  CD 21				INT 21H 
+ 0023				  CODE ENDS 
+				 END START  	 
+Microsoft (R) Macro Assembler Version 5.00                  4/27/21 19:45:02
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	0023	PARA	NONE	
+DATA . . . . . . . . . . . . . .  	0008	PARA	NONE	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+COUNT  . . . . . . . . . . . . .  	NUMBER	0006	
+
+L1 . . . . . . . . . . . . . . .  	L NEAR	0015	CODE
+L2 . . . . . . . . . . . . . . .  	L NEAR	000F	CODE
+LIST . . . . . . . . . . . . . .  	L BYTE	0000	DATA
+
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+SUM  . . . . . . . . . . . . . .  	L BYTE	0006	DATA	Length = 0002
+
+@FILENAME  . . . . . . . . . . .  	TEXT  sum		
+
+
+     23 Source  Lines
+     23 Total   Lines
+     10 Symbols
+
+  51150 + 465394 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

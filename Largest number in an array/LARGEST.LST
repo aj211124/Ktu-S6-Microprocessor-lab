@@ -1,0 +1,65 @@
+Microsoft (R) Macro Assembler Version 5.00                  4/27/21 19:58:41
+                                                             Page     1-1
+
+
+ 0000				DATA SEGMENT 
+ 0000  00 7F 80 FF			LIST DB 00H,7FH,80H,0FFH 
+ = 0004					COUNT EQU 04H 
+ 0004  0001[				LARGEST DB 01H DUP(0) 
+	   00			
+			 ]	
+				
+ 0005				DATA ENDS 
+ 0000				CODE SEGMENT 
+					ASSUME CS:CODE,DS:DATA 
+ 0000  B8 ---- R		  START:MOV AX,DATA 
+ 0003  8E D8				MOV DS,AX 
+ 0005  B8 0000				MOV AX,0000H 
+ 0008  8D 36 0000 R			LEA SI,LIST 
+ 000C  B9 0003				MOV CX,COUNT-1 
+ 000F  8A 04				MOV AL,[SI] 
+ 0011  3A 44 01			     L2:CMP AL,[SI+1] 
+ 0014  73 03				JAE L1 
+ 0016  8A 44 01				MOV AL,[SI+1] 
+ 0019  46			     L1:INC SI 
+ 001A  E2 F5				LOOP L2 
+ 001C  A2 0004 R			MOV LARGEST,AL 
+ 001F  B4 4C				MOV AH,4CH 
+ 0021  CD 21				INT 21H 
+ 0023					CODE ENDS 
+				  END START 
+Microsoft (R) Macro Assembler Version 5.00                  4/27/21 19:58:41
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	0023	PARA	NONE	
+DATA . . . . . . . . . . . . . .  	0005	PARA	NONE	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+COUNT  . . . . . . . . . . . . .  	NUMBER	0004	
+
+L1 . . . . . . . . . . . . . . .  	L NEAR	0019	CODE
+L2 . . . . . . . . . . . . . . .  	L NEAR	0011	CODE
+LARGEST  . . . . . . . . . . . .  	L BYTE	0004	DATA
+LIST . . . . . . . . . . . . . .  	L BYTE	0000	DATA
+
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+
+@FILENAME  . . . . . . . . . . .  	TEXT  largest		
+
+
+     23 Source  Lines
+     23 Total   Lines
+     10 Symbols
+
+  51046 + 465498 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

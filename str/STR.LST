@@ -1,0 +1,63 @@
+Microsoft (R) Macro Assembler Version 5.00                  5/2/21 20:18:58
+                                                             Page     1-1
+
+
+ 0000				DATA1 SEGMENT 
+ 0000  48 45 4C 4C 4F 20 57	 SOURCE DB 'HELLO WORLD' 
+       4F 52 4C 44		
+ = 000B				 STRLEN EQU ($-SOURCE)  
+ 000B  0064[			               DB 100 DUP() 
+	   00			
+			 ]	
+				
+ 006F  000B[			 DESTINATION DB STRLEN DUP(0) 
+	   00			
+			 ]	
+				
+ 007A				DATA1 ENDS 
+ 0000				CODE1 SEGMENT 
+				 ASSUME CS:CODE1,DS:DATA1,ES:DATA1 
+ 0000  B8 ---- R		  START:MOV AX,DATA1 
+ 0003  8E D8			 MOV DS,AX 
+ 0005  8E C0			 MOV ES,AX 
+ 0007  8D 36 0000 R		 LEA SI,SOURCE 
+ 000B  8D 3E 006F R		 LEA DI,DESTINATION 
+ 000F  B9 000B			 MOV CX,STRLEN 
+ 0012  FC			 CLD 
+ 0013  F3/ A4			        REP MOVSB 
+ 0015  B4 4C			 MOV AH,4CH 
+ 0017  CD 21			 INT 21H 
+ 0019				CODE1 ENDS 
+				  END START 
+Microsoft (R) Macro Assembler Version 5.00                  5/2/21 20:18:58
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE1  . . . . . . . . . . . . .  	0019	PARA	NONE	
+DATA1  . . . . . . . . . . . . .  	007A	PARA	NONE	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+DESTINATION  . . . . . . . . . .  	L BYTE	006F	DATA1	Length = 000B
+
+SOURCE . . . . . . . . . . . . .  	L BYTE	0000	DATA1
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE1
+STRLEN . . . . . . . . . . . . .  	NUMBER	000B	
+
+@FILENAME  . . . . . . . . . . .  	TEXT  str		
+
+
+     20 Source  Lines
+     20 Total   Lines
+      8 Symbols
+
+  51114 + 465430 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

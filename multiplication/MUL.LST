@@ -1,0 +1,57 @@
+Microsoft (R) Macro Assembler Version 5.00                  4/12/21 14:21:04
+                                                             Page     1-1
+
+
+ 0000				DATA1 SEGMENT  
+ 0000  204A			NUM1 DW 204AH 
+ 0002  3B2A			NUM2 DW 3B2AH 
+ 0004  0002[			MULTI DW 2 DUP(0)  
+	   0000			
+			 ]	
+				
+ 0008				DATA1 ENDS 
+ 0000				CODE1 SEGMENT 
+				ASSUME CS:CODE1, DS:DATA1 
+ 0000  B8 ---- R		START: MOV AX,DATA1 
+ 0003  8E D8			MOV DS,AX 
+ 0005  A1 0000 R		MOV AX,NUM1 
+ 0008  F7 26 0002 R		MUL NUM2 
+ 000C  A3 0004 R		MOV MULTI,AX 
+ 000F  89 16 0006 R		MOV MULTI+2,DX 
+ 0013  B4 4C			MOV AH,4CH 
+ 0015  CD 21			INT 21H 
+ 0017				CODE1 ENDS 
+				END START 
+Microsoft (R) Macro Assembler Version 5.00                  4/12/21 14:21:04
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE1  . . . . . . . . . . . . .  	0017	PARA	NONE	
+DATA1  . . . . . . . . . . . . .  	0008	PARA	NONE	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+MULTI  . . . . . . . . . . . . .  	L WORD	0004	DATA1	Length = 0002
+
+NUM1 . . . . . . . . . . . . . .  	L WORD	0000	DATA1
+NUM2 . . . . . . . . . . . . . .  	L WORD	0002	DATA1
+
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE1
+
+@FILENAME  . . . . . . . . . . .  	TEXT  mul		
+
+
+     17 Source  Lines
+     17 Total   Lines
+      8 Symbols
+
+  51188 + 465356 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

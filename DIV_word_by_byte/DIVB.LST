@@ -1,0 +1,63 @@
+Microsoft (R) Macro Assembler Version 5.00                  4/12/21 14:35:20
+                                                             Page     1-1
+
+
+ 0000				DATA1 SEGMENT 
+ 0000  75A5			NUM1 DW 75A5H 
+ 0002  7F			NUM2 DB 7FH 
+ 0003  0001[			REMINDER DB 1 DUP(0) 
+	   00			
+			 ]	
+				
+ 0004  0001[			QUOTIENT DB 1 DUP(0) 
+	   00			
+			 ]	
+				
+ 0005				DATA1 ENDS 
+ 0000				CODE SEGMENT 
+				ASSUME CS:CODE, DS:DATA1 
+ 0000  B8 ---- R		START:MOV AX,DATA1 
+ 0003  8E D8			MOV DS,AX 
+ 0005  A1 0000 R		MOV AX,NUM1 
+ 0008  F6 36 0002 R		DIV NUM2 
+ 000C  A2 0004 R		MOV QUOTIENT,AL 
+ 000F  88 26 0003 R		MOV REMINDER,AH 
+ 0013  B4 4C			MOV AH,4CH 
+ 0015  CD 21			INT 21H 
+ 0017				CODE ENDS 
+				END START 
+Microsoft (R) Macro Assembler Version 5.00                  4/12/21 14:35:20
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	0017	PARA	NONE	
+DATA1  . . . . . . . . . . . . .  	0005	PARA	NONE	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+NUM1 . . . . . . . . . . . . . .  	L WORD	0000	DATA1
+NUM2 . . . . . . . . . . . . . .  	L BYTE	0002	DATA1
+
+QUOTIENT . . . . . . . . . . . .  	L BYTE	0004	DATA1
+
+REMINDER . . . . . . . . . . . .  	L BYTE	0003	DATA1
+
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+
+@FILENAME  . . . . . . . . . . .  	TEXT  divb		
+
+
+     18 Source  Lines
+     18 Total   Lines
+      9 Symbols
+
+  51212 + 465332 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

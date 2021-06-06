@@ -1,0 +1,97 @@
+Microsoft (R) Macro Assembler Version 5.00                  6/6/21 15:12:32
+                                                             Page     1-1
+
+
+				DISPLAY MACRO MSG 
+					MOV AH,09H 
+					LEA DX,MSG 
+					INT 21H 
+					ENDM 
+ 0000				DATA SEGMENT 
+ = 000D					CR EQU 0DH 
+ = 000A					LF EQU 0AH 
+ 0000  4F 4E 43 45 20 49 20		MSG1 DB 'ONCE I WAS SEVEN YEARS OLD MY 
+				MAMA TOLD ME',LF,CR,'$' 
+       57 41 53 20 53 45 56	
+       45 4E 20 59 45 41 52	
+       53 20 4F 4C 44 20 4D	
+       59 20 4D 41 4D 41 20	
+       54 4F 4C 44 20 4D 45	
+       0A 0D 24			
+ 002D  47 4F 20 4D 41 4B 45		MSG2 DB 'GO MAKE YOURSELF SOME FRIENDS 
+				OR YOU WILL BE LONELY',LF,CR,'$' 
+       20 59 4F 55 52 53 45	
+       4C 46 20 53 4F 4D 45	
+       20 46 52 49 45 4E 44	
+       53 20 4F 52 20 59 4F	
+       55 20 57 49 4C 4C 20	
+       42 45 20 4C 4F 4E 45	
+       4C 59 0A 0D 24		
+ 0063  4F 4E 43 45 20 49 20		MSG3 DB 'ONCE I WAS SEVEN YEARS OLD$' 
+       57 41 53 20 53 45 56	
+       45 4E 20 59 45 41 52	
+       53 20 4F 4C 44 24	
+ 007E				DATA ENDS 
+ 0000				CODE SEGMENT 
+					ASSUME CS:CODE,DS:DATA 
+ 0000  B8 ---- R		            START:MOV AX,DATA 
+ 0003  8E D8				MOV DS,AX 
+					DISPLAY MSG1 
+ 0005  B4 09                 1		MOV AH,09H 
+ 0007  8D 16 0000 R          1		LEA DX,MSG1 
+ 000B  CD 21                 1		INT 21H 
+					DISPLAY MSG2 
+ 000D  B4 09                 1		MOV AH,09H 
+ 000F  8D 16 002D R          1		LEA DX,MSG2 
+ 0013  CD 21                 1		INT 21H 
+				  	DISPLAY MSG3 
+ 0015  B4 09                 1		MOV AH,09H 
+ 0017  8D 16 0063 R          1		LEA DX,MSG3 
+ 001B  CD 21                 1		INT 21H 
+ 001D  B4 4C				MOV AH,4CH 
+ 001F  CD 21				INT 21H 
+ 0021					CODE ENDS 
+				  END START 
+
+Microsoft (R) Macro Assembler Version 5.00                  6/6/21 15:12:32
+                                                             Symbols-1
+
+
+Macros:
+
+		N a m e			Lines
+
+DISPLAY  . . . . . . . . . . . .  	   3
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	0021	PARA	NONE	
+DATA . . . . . . . . . . . . . .  	007E	PARA	NONE	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+CR . . . . . . . . . . . . . . .  	NUMBER	000D	
+
+LF . . . . . . . . . . . . . . .  	NUMBER	000A	
+
+MSG1 . . . . . . . . . . . . . .  	L BYTE	0000	DATA
+MSG2 . . . . . . . . . . . . . .  	L BYTE	002D	DATA
+MSG3 . . . . . . . . . . . . . .  	L BYTE	0063	DATA
+
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+
+@FILENAME  . . . . . . . . . . .  	TEXT  macro		
+
+
+     23 Source  Lines
+     32 Total   Lines
+     11 Symbols
+
+  51210 + 465334 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors

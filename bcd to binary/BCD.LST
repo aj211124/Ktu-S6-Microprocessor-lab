@@ -1,0 +1,83 @@
+Microsoft (R) Macro Assembler Version 5.00                  6/6/21 14:53:16
+                                                             Page     1-1
+
+
+ 0000				DATA SEGMENT 
+ 0000  89				BCD_IN DB 89H 
+ 0001  0001[				BIN_VAL DB 1 DUP (0) 
+	   00			
+			 ]	
+				
+ 0002				DATA ENDS 
+				 
+ 0000				STACK_SEG SEGMENT  
+ 0000  0064[				       DW 100 DUP (0) 
+	   0000			
+			 ]	
+				
+ 00C8					TOP LABEL WORD 
+ 00C8				STACK_SEG ENDS 
+				 
+ 0000				CODE SEGMENT 
+					ASSUME CS:CODE,DS:DATA,SS:STACK_SEG 
+ 0000  B8 ---- R		  START:MOV AX,DATA 
+ 0003  8E D8				MOV DS,AX 
+ 0005  B8 ---- R			MOV AX,STACK_SEG 
+ 0008  8E D0				MOV SS,AX 
+ 000A  8D 26 00C8 R			LEA SP,TOP 
+ 000E  A0 0000 R			MOV AL,BCD_IN 
+ 0011  E8 001B R			CALL BCD_BIN 
+ 0014  A2 0001 R			MOV BIN_VAL,AL 
+ 0017  B4 4C				MOV AH,4CH 
+ 0019  CD 21				INT 21H 
+				 
+ 001B					BCD_BIN PROC NEAR 
+ 001B  9C					PUSHF 
+ 001C  8A D8					MOV BL,AL 
+ 001E  80 E3 0F					AND BL,0FH 
+ 0021  24 F0					AND AL,0F0H 
+ 0023  B1 04					MOV CL,04H 
+ 0025  D2 C8					ROR AL,CL 
+ 0027  B7 0A					MOV BH,0AH 
+ 0029  F6 E7			 		MUL BH 
+ 002B  02 C3					ADD AL,BL 
+ 002D  9D					POPF 
+ 002E  C3					RET	 
+ 002F					BCD_BIN ENDP 
+ 002F					CODE ENDS 
+				     END START	 
+Microsoft (R) Macro Assembler Version 5.00                  6/6/21 14:53:16
+                                                             Symbols-1
+
+
+Segments and Groups:
+
+                N a m e         	Length	 Align	Combine Class
+
+CODE . . . . . . . . . . . . . .  	002F	PARA	NONE	
+DATA . . . . . . . . . . . . . .  	0002	PARA	NONE	
+STACK_SEG  . . . . . . . . . . .  	00C8	PARA	NONE	
+
+Symbols:            
+
+                N a m e         	Type	 Value	 Attr
+
+BCD_BIN  . . . . . . . . . . . .  	N PROC	001B	CODE	Length = 0014
+BCD_IN . . . . . . . . . . . . .  	L BYTE	0000	DATA
+BIN_VAL  . . . . . . . . . . . .  	L BYTE	0001	DATA
+
+START  . . . . . . . . . . . . .  	L NEAR	0000	CODE
+
+TOP  . . . . . . . . . . . . . .  	L WORD	00C8	STACK_SEG
+
+@FILENAME  . . . . . . . . . . .  	TEXT  bcd		
+
+
+     38 Source  Lines
+     38 Total   Lines
+     10 Symbols
+
+  51224 + 465320 Bytes symbol space free
+
+      0 Warning Errors
+      0 Severe  Errors
